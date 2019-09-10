@@ -1,0 +1,21 @@
+
+public class TestSelv {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		betingetUtskrift("hallo", b -> b.length() > 3);
+	}
+
+	
+	public static void betingetUtskrift(String s, Betingelse b) {
+		if (b.erOppfylt(s)) {
+			System.out.println(s);
+		}
+	}
+}
+
+@FunctionalInterface
+interface Betingelse{
+	boolean erOppfylt(String s);
+}

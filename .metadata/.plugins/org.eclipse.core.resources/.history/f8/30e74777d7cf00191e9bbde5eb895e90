@@ -1,0 +1,31 @@
+package no.hvl.dat108;
+
+public class ReadSync extends Thread {
+	
+	private Person person;
+	
+	public ReadSync(Person person) {
+		super();
+        this.person = person;
+    }
+
+    @Override
+    public void run() {
+        
+    	while (true) {
+    		synchronized (person) {
+    			if (!person.erLest()) {
+    				person.setErLest(true);
+    				person.getNavn();
+        			person.notifyAll();
+    			} else {
+    				try {
+    					person.wait();
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		}
+    	}
+    }
+}

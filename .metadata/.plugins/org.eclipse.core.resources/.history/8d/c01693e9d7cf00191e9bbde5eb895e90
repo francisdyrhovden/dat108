@@ -1,0 +1,21 @@
+package no.hvl.dat108;
+
+public class SirkulaerTabell {
+	
+	int posisjon;
+	Person[] tab = {new Person("Per"),new Person("Ole"),
+					new Person("Francis"), new Person("Hans"), new Person("Knut")};
+	
+	public SirkulaerTabell() {
+		posisjon = 0;
+	}
+	
+	public Person getPerson() {
+		return tab[posisjon];
+	}
+	
+	public Person getNeste(){
+		posisjon = (posisjon+1) % tab.length;
+		return tab[posisjon];
+	}
+}

@@ -1,0 +1,78 @@
+package no.hvl.dat108.Oppg3;
+
+import java.util.Arrays;
+
+import java.util.List;
+import java.util.function.Function;
+
+import no.hvl.dat108.Ansatt;
+import no.hvl.dat108.Kjonn;
+
+
+
+public class Oppg3 {
+
+	public static void main(String[] args) {
+
+		List<Ansatt> ansatte = Arrays.asList(
+				new Ansatt("Francis", "Dyrhovden", Kjonn.MANN, "Sjef", 1000000),
+				new Ansatt("Julie", "Schnell", Kjonn.KVINNE, "Vaskehjelp", 10000),
+				new Ansatt("Lasse", "Hansen", Kjonn.MANN, "Avdelingssjef", 500000),
+				new Ansatt("Bjørnar", "Espeland", Kjonn.MANN, "Vaktmester", 200000),
+				new Ansatt("Kathrine", "Hermansen", Kjonn.KVINNE, "Assistent", 150000)
+				);
+		
+		int fastKrone = 10000;
+		int fastProsent = 10;
+		int lavLonnGrense = 300000;
+		int lavLonnTillegg = 20000;
+		int mannTillegg = 999;
+		
+		
+		lonnsoppgjor(ansatte, a -> {
+			a.setAarslonn(a.getAarslonn() + fastKrone);
+			return a.getAarslonn();
+		});
+		skrivUtAlle(ansatte);
+		
+		lonnsoppgjor(ansatte, a -> {
+			a.setAarslonn(a.getAarslonn() + (fastProsent * a.getAarslonn()) / 100);
+			return a.getAarslonn();
+		});
+		skrivUtAlle(ansatte);
+		
+		lonnsoppgjor(ansatte, a -> {
+			if (a.getAarslonn() < lavLonnGrense) {
+				a.setAarslonn(a.getAarslonn() + lavLonnTillegg);
+				return a.getAarslonn();
+			}
+			return a.getAarslonn();
+		});
+		skrivUtAlle(ansatte);
+		
+		lonnsoppgjor(ansatte, a -> {
+			if (a.getKjonn() == Kjonn.MANN) {
+				a.setAarslonn(a.getAarslonn() + mannTillegg);
+				return a.getAarslonn();
+			}
+			return a.getAarslonn();
+		});
+		skrivUtAlle(ansatte);
+		
+	}
+	
+	
+	private static void lonnsoppgjor(List<Ansatt> ansatte, Function<Ansatt,Integer> func) {
+		for (Ansatt a : ansatte) {
+			func.apply(a);
+		}
+		
+	}
+	
+	private static void skrivUtAlle(List<Ansatt> ansatte) {
+		for (Ansatt a : ansatte) {
+			System.out.println(a);
+		}
+	}
+
+}

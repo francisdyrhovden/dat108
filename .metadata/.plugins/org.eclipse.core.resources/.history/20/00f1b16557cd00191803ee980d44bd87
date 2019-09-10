@@ -1,0 +1,20 @@
+
+public class TestSelv {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String streng = "Hallo";
+		boolean valg = true;
+		
+		betingetUtskrift(streng, valg);
+	}
+
+	
+	public static void betingetUtskrift(String a, boolean b) {
+		if (b == true) {
+			System.out.println(a);
+		}
+		
+		
+	}
+}

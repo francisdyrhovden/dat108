@@ -1,0 +1,33 @@
+package no.hvl.dat108;
+
+public class WriteSync extends Thread {
+	
+	private Person person;
+	private SirkulaerTabell tab;
+	
+	public WriteSync(Person person, SirkulaerTabell tab) {
+		super();
+        this.person = person;
+        this.tab = tab;
+    }
+
+    @Override
+    public void run() {
+    	while (true) {
+    		synchronized (person) {
+    			if (person.erLest()) {
+    				person.setNavn(tab.getNeste());
+    				person.setErLest(false);
+    				person.notifyAll();
+    			} else {
+    				try {
+    					person.wait();
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		}
+    	}
+        
+    }
+}

@@ -1,0 +1,19 @@
+package no.hvl.dat108;
+
+import java.util.function.BiFunction;
+
+public class Oppg2b {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int sum = beregn(12,13, "summer");
+		System.out.println(sum);
+	}
+	
+	public static int beregn(int a, int b, String c) {
+		BiFunction<Integer, Integer, Integer> func = (t1, t2) -> t1 + t2;
+		return summer.apply(a, b);
+	}
+
+}

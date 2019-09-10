@@ -1,0 +1,22 @@
+package no.hvl.dat108;
+
+import java.util.function.BiFunction;
+
+public class Oppg2b {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BiFunction<Integer, Integer, Integer> summer = (x, y) -> {      
+		      return x + y;
+	    };
+		
+		
+		int sum = beregn(12, 13, summer;
+		System.out.println(sum);
+	}
+	
+	public static int beregn(int a, int b, BiFunction<Integer, Integer, Integer> bi) {
+		return bi.apply(a, b);
+	}
+
+}

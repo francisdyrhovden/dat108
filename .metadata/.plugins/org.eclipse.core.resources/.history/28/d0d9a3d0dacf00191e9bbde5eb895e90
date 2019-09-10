@@ -1,0 +1,49 @@
+package no.hvl.dat108;
+
+public class Main {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		SirkulaerTabell tab = new SirkulaerTabell();
+		Person person = new Person("Adam");
+		
+		Thread lese1 = new ReadSync(person, tab);
+		Thread lese2 = new ReadSync(person, tab);
+		Thread lese3 = new ReadSync(person, tab);
+		Thread lese4 = new ReadSync(person, tab);
+		Thread lese5 = new ReadSync(person, tab);
+		
+		Thread skrive1 = new WriteSync(person, tab);
+		Thread skrive2 = new WriteSync(person, tab);
+		Thread skrive3 = new WriteSync(person, tab);
+		Thread skrive4 = new WriteSync(person, tab);
+		Thread skrive5 = new WriteSync(person, tab);
+		
+		
+		lese1.start();
+		lese2.start();
+		lese3.start();
+		lese4.start();
+		lese5.start();
+		
+		skrive1.start();
+		skrive2.start();
+		skrive3.start();
+		skrive4.start();
+		skrive5.start();
+		
+		lese1.join();
+		lese2.join();
+		lese3.join();
+		lese4.join();
+		lese5.join();
+		
+		skrive1.join();
+		skrive2.join();
+		skrive3.join();
+		skrive4.join();
+		skrive5.join();
+	}
+
+}

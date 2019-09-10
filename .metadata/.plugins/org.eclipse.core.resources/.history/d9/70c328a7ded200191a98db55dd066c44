@@ -1,0 +1,65 @@
+package no.hvl.dat108;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Oppg4 {
+
+	public static void main(String[] args) {
+
+		List<Ansatt> ansatte = Arrays.asList(
+				new Ansatt("Francis", "Dyrhovden", Kjonn.MANN, "Sjef", 1000000),
+				new Ansatt("Julie", "Schnell", Kjonn.KVINNE, "Vaskehjelp", 10000),
+				new Ansatt("Lasse", "Hansen", Kjonn.MANN, "avdelingssjef", 500000),
+				new Ansatt("Bjørnar", "Espeland", Kjonn.MANN, "Vaktmester", 200000),
+				new Ansatt("Kathrine", "Hermansen", Kjonn.KVINNE, "Assistent", 150000)
+				);
+		
+		//Ny liste med etternavn
+		List<String> etternavnene = ansatte.stream()
+									.map(a -> a.getEtternavn())
+									.collect(Collectors.toList());
+		System.out.println("Liste med etternavn: " + etternavnene);
+		
+		
+		//Antall kvinner
+		long antKvinner = ansatte.stream()
+						.filter(a -> a.getKjonn() == Kjonn.KVINNE)
+						.count();
+		System.out.println("Antall Kvinner: " + antKvinner);
+		
+		
+		//Gjennomsnittslønn til kvinner
+		int gjsnittKvinner =  ansatte.stream()
+								.filter(a -> a.getKjonn() == Kjonn.KVINNE)
+								.map(a -> a.getAarslonn())
+								.reduce(0,(sum, a) -> (sum += a)) / Math.toIntExact(antKvinner);
+		System.out.println("Gjennomsnittslønn for kvinner: " + gjsnittKvinner);
+		
+		
+		
+		//Alle sjefer får lønnsøkning på 7%
+		List<Ansatt> sjefer = ansatte.stream()
+								.filter(a -> a.getStilling().toLowerCase().contains("sjef"))
+								.collect(Collectors.toList());
+		sjefer.stream().forEach(a -> a.setAarslonn(a.getAarslonn() + ((a.getAarslonn() * 7) / 100)));
+		System.out.println("Sjefer: " + sjefer);
+		
+		
+		
+		//Finne ut som det er noen ansatte som tjener over 800 000
+		boolean tjenerMer = ansatte.stream().anyMatch(a -> a.getAarslonn() > 800000);
+		System.out.println("Finnes det en ansatt som tjener mer enn 800000?: " + tjenerMer);
+		
+		
+		//Skrive ut alle ansatte uten bruk av løkke
+		ansatte.stream().forEach(System.out::println);
+		
+		
+		
+	}						
+	
+	
+
+}

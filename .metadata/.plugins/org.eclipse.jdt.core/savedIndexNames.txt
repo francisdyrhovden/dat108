@@ -1,0 +1,11 @@
+INDEX VERSION 1.131+/Users/Francis/dat108/.metadata/.plugins/org.eclipse.jdt.core
+1731117398.index
+208110701.index
+3703194086.index
+770902169.index
+4253122999.index
+1408258880.index
+4109455313.index
+3187552876.index
+3405316858.index
+914072745.index

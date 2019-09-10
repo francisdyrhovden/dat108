@@ -1,0 +1,86 @@
+package no.hvl.dat108;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Oppg4 {
+
+	public static void main(String[] args) {
+
+		List<Ansatt> ansatte = Arrays.asList(
+				new Ansatt("Francis", "Dyrhovden", Kjonn.MANN, "Sjef", 1000000),
+				new Ansatt("Julie", "Schnell", Kjonn.KVINNE, "Vaskehjelp", 10000),
+				new Ansatt("Lasse", "Hansen", Kjonn.MANN, "avdelingssjef", 500000),
+				new Ansatt("Bjørnar", "Espeland", Kjonn.MANN, "Vaktmester", 200000),
+				new Ansatt("Kathrine", "Hermansen", Kjonn.KVINNE, "Assistent", 150000)
+				);
+		
+		//a) Ny liste med etternavn
+		List<String> etternavnene = ansatte.stream()
+									.map(a -> a.getEtternavn())
+									.collect(Collectors.toList());
+		System.out.println("a) Liste med etternavn: " + etternavnene);
+		
+		
+		//b) Antall kvinner
+		long antKvinner = ansatte.stream()
+						.filter(a -> a.getKjonn() == Kjonn.KVINNE)
+						.count();
+		System.out.println("b) Antall Kvinner: " + antKvinner);
+		
+		
+		//c) Gjennomsnittslønn til kvinner
+		int gjsnittKvinner =  ansatte.stream()
+								.filter(a -> a.getKjonn() == Kjonn.KVINNE)
+								.map(a -> a.getAarslonn())
+								.reduce(0,(sum, a) -> (sum += a)) / Math.toIntExact(antKvinner);
+		System.out.println("c) Gjennomsnittslønn for kvinner: " + gjsnittKvinner);
+		
+		
+		
+		//d) Alle sjefer får lønnsøkning på 7%
+		List<Ansatt> sjefer = ansatte.stream()
+								.filter(a -> a.getStilling().toLowerCase().contains("sjef"))
+								.collect(Collectors.toList());
+		sjefer.stream().forEach(a -> a.setAarslonn(a.getAarslonn() + ((a.getAarslonn() * 7) / 100)));
+		System.out.println("d) Sjefer: " + sjefer);
+		
+		
+		
+		//e) Finne ut som det er noen ansatte som tjener over 800 000
+		boolean tjenerMer = ansatte.stream().anyMatch(a -> a.getAarslonn() > 800000);
+		System.out.println("e) Finnes det en ansatt som tjener mer enn 800000?: " + tjenerMer);
+		
+		
+		//f) Skrive ut alle ansatte uten bruk av løkke
+		System.out.println("f) ");
+		ansatte.stream().forEach(System.out::println);
+		
+		
+		
+		//g) Skrive ut den/de ansatte med lavest lønn.
+		// Lager først sortert liste etter lønn, og printer ut de som har lik lønn som den første i listen.
+		System.out.println("g) ");
+		List<Ansatt> sortLonn = ansatte.stream()
+								.sorted((a1,a2) -> a1.getAarslonn() - a2.getAarslonn())
+								.collect(Collectors.toList());
+		sortLonn.stream().filter(a -> a.getAarslonn() == sortLonn.get(0).getAarslonn()).forEach(System.out::println);
+		
+		
+		
+		
+		//h) Skriv ut summen av alle heltall i [1, 1000> som er delelig med 3 eller 5.
+		System.out.println("h) ");
+		int summen = IntStream.range(1,1000)
+					.filter(x -> x % 3 == 0 || x % 5 == 0)
+					.reduce(0, (sum,tall) -> sum+= tall);
+		System.out.println("Summer er: " + summen);
+		
+
+	}		
+	
+	
+
+}
